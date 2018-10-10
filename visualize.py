@@ -103,8 +103,8 @@ def main(args=None):
                               color=(0, 0, 255), thickness=2)
                 print(label_name)
 
-            cv2.imshow('img', img)
-            cv2.waitKey(0)
+            cv2.imwrite('img{}.jpeg'.format(idx), img)
+            # cv2.waitKey(0)
 
 
 if __name__ == '__main__':
