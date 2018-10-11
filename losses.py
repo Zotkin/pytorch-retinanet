@@ -21,10 +21,10 @@ def calc_iou(a, b):
 
     intersection = iw * ih
     print("Intersection")
-    print(intersection.shape)
+    # print(intersection.shape)
     IoU = intersection / ua
     print("IoU")
-    print(IoU.shape)
+    # print(IoU.shape)
 
     return IoU
 
@@ -103,7 +103,7 @@ class FocalLoss(nn.Module):
             focal_weight = torch.where(
                 torch.eq(targets, 1.), 1. - classification, classification)
             focal_weight = alpha_factor * torch.pow(focal_weight, gamma)
-
+            print(classification)
             bce = -(targets * torch.log(classification) +
                     (1.0 - targets) * torch.log(1.0 - classification))
 
