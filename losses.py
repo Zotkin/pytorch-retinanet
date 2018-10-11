@@ -73,7 +73,7 @@ class FocalLoss(nn.Module):
             targets[torch.lt(IoU_max, 0.4), :] = 0
 
             # this value used to be 0.2
-            positive_indices = torch.ge(IoU_max, 0.05)
+            positive_indices = torch.ge(IoU_max, 0.2)
 
             num_positive_anchors = positive_indices.sum()
 
