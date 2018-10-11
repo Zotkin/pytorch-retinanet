@@ -21,10 +21,10 @@ def calc_iou(a, b):
 
     intersection = iw * ih
     print("Intersection")
-    print(intersection)
+    print(intersection.shape)
     IoU = intersection / ua
     print("IoU")
-    print(IoU)
+    print(IoU.shape)
 
     return IoU
 
@@ -86,7 +86,7 @@ class FocalLoss(nn.Module):
 
             targets[torch.lt(IoU_max, 0.4), :] = 0
 
-            positive_indices = torch.ge(IoU_max, 0.5)
+            positive_indices = torch.ge(IoU_max, 0.2)
 
             num_positive_anchors = positive_indices.sum()
 
