@@ -52,9 +52,11 @@ class FocalLoss(nn.Module):
             bbox_annotation = bbox_annotation[bbox_annotation[:, 4] != -1]
 
             print("Bbox annotation:")
-            print(bbox_annotation)
+            print(bbox_annotation[:4])
+            print("Anchors")
+            print(anchors[0, :, :])
             print("Bbox annotation shape:")
-            print(bbox.shape)
+            print(bbox_annotation.shape)
 
             if bbox_annotation.shape[0] == 0:
                 print("Bbox array is empty")
