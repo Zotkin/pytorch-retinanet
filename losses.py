@@ -20,11 +20,7 @@ def calc_iou(a, b):
     ua = torch.clamp(ua, min=1e-8)
 
     intersection = iw * ih
-    print("Intersection")
-    # print(intersection.shape)
     IoU = intersection / ua
-    print("IoU")
-    # print(IoU.shape)
 
     return IoU
 
@@ -54,17 +50,7 @@ class FocalLoss(nn.Module):
             bbox_annotation = annotations[j, :, :]
             bbox_annotation = bbox_annotation[bbox_annotation[:, 4] != -1]
 
-            #print("Bbox annotation:")
-            # print(bbox_annotation[:4])
-            # print("Anchors")
-            #print(anchors[0, :, :])
-            print("Bbox annotation shape:")
-            print(bbox_annotation.shape)
-            print("Anchors shape")
-            print(anchors[0, :, :].shape)
-
             if bbox_annotation.shape[0] == 0:
-                print("Bbox array is empty")
                 regression_losses.append(torch.tensor(0).float().cuda())
                 classification_losses.append(torch.tensor(0).float().cuda())
 
@@ -86,7 +72,8 @@ class FocalLoss(nn.Module):
 
             targets[torch.lt(IoU_max, 0.4), :] = 0
 
-            positive_indices = torch.ge(IoU_max, 0.2)
+            # this value used to be 0.2
+            positive_indices = torch.ge(IoU_max, 0.05)
 
             num_positive_anchors = positive_indices.sum()
 
@@ -103,7 +90,6 @@ class FocalLoss(nn.Module):
             focal_weight = torch.where(
                 torch.eq(targets, 1.), 1. - classification, classification)
             focal_weight = alpha_factor * torch.pow(focal_weight, gamma)
-            print(classification)
             bce = -(targets * torch.log(classification) +
                     (1.0 - targets) * torch.log(1.0 - classification))
 
