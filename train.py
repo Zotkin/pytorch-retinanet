@@ -256,8 +256,8 @@ class Trainer(object):
         self.retinanet.train()
         self.retinanet.module.freeze_bn()
 
-    def collate(self):
-        return collater
+    def collate(self, *args, **kwargs):
+        return collater(*args, **kwargs)
 
     def fit(self, num_epochs):
 
