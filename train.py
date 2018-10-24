@@ -209,11 +209,14 @@ class Trainer(object):
     def __init__(self, csv_train, csv_classes, csv_val=None, depth=50, gpu=True):
         self.dataset_train = CSVDataset(train_file=csv_train,
                                         class_list=csv_classes,
-                                        transform=transforms.Compose([Normalizer(), Augmenter(), Resizer()]))
+                                        # transform=transforms.Compose([Normalizer(), Augmenter(), Resizer()]))
+                                        transform=self.get_transformation())
         if csv_val is not None:
             self.dataset_val = CSVDataset(train_file=csv_val,
                                           class_list=csv_classes,
-                                          transform=transforms.Compose([Normalizer(), Augmenter(), Resizer()]))
+                                          # transform=transforms.Compose([Normalizer(), Augmenter(), Resizer()]))
+                                          transform=self.get_transformation())
+
         else:
             self.dataset_val = None
 
