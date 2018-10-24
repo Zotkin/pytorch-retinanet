@@ -285,7 +285,7 @@ class Trainer(object):
 
                     loss.backward()
 
-                    torch.utils.clip_grad_norm_(
+                    torch.nn.utils.clip_grad_norm_(
                         self.retinanet.parameters(), 0.1)
 
                     self.optimizer.step()
