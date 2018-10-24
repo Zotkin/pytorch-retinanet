@@ -12,6 +12,15 @@ from torch.utils.data.sampler import Sampler
 
 from pycocotools.coco import COCO
 
+from albumentations import (
+    Compose,
+    ChannelShuffle, 
+    RandomBrightness,
+    VerticalFlip,
+    HorizontalFlip,
+    RandomRotate90,
+    Transpose
+)
 import skimage.io
 import skimage.transform
 import skimage.color
@@ -121,6 +130,18 @@ class CocoDataset(Dataset):
 
     def num_classes(self):
         return 80
+
+
+class CustomDataset(Dataset):
+
+    def __init__(self, img_foleder, annotations): 
+        pass
+
+    def __len__(self): 
+        pass
+    def __getitem__(self): 
+        pass
+    
 
 
 class CSVDataset(Dataset):
