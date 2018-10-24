@@ -201,7 +201,7 @@ def main(args=None):
 
     retinanet.eval()
 
-    torch.save(retinanet, 'model_final.pt'.format(epoch_num))
+    torch.save(retinanet, 'model_final_{}.pt'.format(epoch_num))
 
 
 class Trainer(object):
@@ -234,7 +234,7 @@ class Trainer(object):
                                              batch_sampler=self.sampler)
         if depth == 50:
             self.retinanet = model.resnet50(
-                num_classes=self.dataloader_train.num_classes(),
+                num_classes=self.dataset_train.num_classes(),
                 pretrained=True
             )
         else:
@@ -304,7 +304,7 @@ class Trainer(object):
         if self.dataset_val is not None:
             print("Evaluating dataset")
 
-            mAP = csv_eval.evaluate(self.dataset_val, retinanet)
+            mAP = csv_eval.evaluate(self.dataset_val, self.retinanet)
         self.scheduler.step(np.mean(epoch_loss))
         torch.save(self.retinanet.module, "Chequer_retinane_{}.pt".format(
             epoch_num))
@@ -312,12 +312,12 @@ class Trainer(object):
     def get_transformation(self, p=.5):
 
         transforms = Compose(
-            Compose(p=p), HorizontalFlip(p=p), VerticalFlip(
-                p=p), RandomRotate90(p=p), Transpose(p=p), GaussNoise(p=p)
+            [HorizontalFlip(p=p), VerticalFlip(
+                p=p), RandomRotate90(p=p), Transpose(p=p), GaussNoise(p=p)]
         )
         return transforms
 
 
 if __name__ == '__main__':
     # main()
-    trainer = Trainer("data/annotations.csv", "data/classes.csv")
+    trainer = Trainer("data/annotations.csv", "data/classes.csv").fit(10)
