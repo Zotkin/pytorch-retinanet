@@ -320,4 +320,4 @@ class Trainer(object):
 
 if __name__ == '__main__':
     # main()
-    trainer = Trainer("/data/annotations.csv", "/data/classes.csv")
+    trainer = Trainer("data/annotations.csv", "data/classes.csv")
