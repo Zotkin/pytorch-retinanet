@@ -254,7 +254,7 @@ class Trainer(object):
         self.loss_history = collections.deque(maxlen=500)
 
         self.retinanet.train()
-        self.retinanet.freeze_bn()
+        self.retinanet.module.freeze_bn()
 
     def collate(self):
         return collater
