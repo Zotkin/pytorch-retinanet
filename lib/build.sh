@@ -7,7 +7,7 @@ CUDA_ARCH="-gencode arch=compute_30,code=sm_30 \
 
 
 # Build NMS
-cd nms/src/cuda
+cd ./nms/src/cuda
 echo "Current dir"
 pwd
 echo "Compiling nms kernels by nvcc..."
